@@ -55,9 +55,9 @@ class Platformer(arcade.Window):
 
     def on_key_press(self, symbol, modifiers):
         if symbol == arcade.key.D:
-            self.player.change_x = 6
+            self.player.change_x = 8
         if symbol == arcade.key.A:
-            self.player.change_x = -6
+            self.player.change_x = -8
         if symbol == arcade.key.LEFT:
             self.player.change_angle = 4
         if symbol == arcade.key.RIGHT:
