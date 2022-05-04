@@ -33,7 +33,7 @@ class Player(arcade.Sprite):
         
     # Code for updating everything about the player
     def update_animation(self, is_touching_ground):
-        if not is_touching_ground:      # jumping
+        if is_touching_ground:      # jumping
             if self.direction == "right":
                 self.texture = self.jump_right_texture
             elif self.direction == "left":
@@ -64,3 +64,24 @@ class Player(arcade.Sprite):
                 self.texture = self.stand_right_texture
             elif self.direction == "left":
                 self.texture = self.stand_left_texture
+
+    
+    def key_press(self, key, pressed):
+        if pressed:
+            if key == arcade.key.D:
+                self.change_x += 8
+            if key == arcade.key.A:
+                self.change_x += -8
+            if key == arcade.key.LEFT:
+                self.change_angle = 4
+            if key == arcade.key.RIGHT:
+                self.change_angle = -4
+        else:
+            if key == arcade.key.D:
+                self.change_x -= 8
+            if key == arcade.key.A:
+                self.change_x -= -8
+            if key == arcade.key.LEFT:
+                self.change_angle = 0
+            if key == arcade.key.RIGHT:
+                self.change_angle = 0
