@@ -1,11 +1,12 @@
 import arcade
 from player import Player
 from camera import Camera
+from single_hit_block import SingleHitBlock
 
 
 class Platformer(arcade.Window):
     def __init__(self):
-        super().__init__(600, 400, "Platformer", resizable=True, fullscreen=True, vsync=True)
+        super().__init__(600, 400, "Platformer", resizable=True, fullscreen=False, vsync=True)
         arcade.set_background_color(arcade.color.SKY_BLUE)
 
         self.spawn_left = 88
@@ -17,6 +18,9 @@ class Platformer(arcade.Window):
         self.ground = self.map.sprite_lists["Ground"]
         self.gems = self.map.sprite_lists["Gems"]
         self.spikes = self.map.sprite_lists["Spikes"]
+        self.powerblocks = self.map.sprite_lists["Power Blocks"]
+        
+        self.powerblock = SingleHitBlock(self.powerblocks[0])
 
         self.physics = arcade.PhysicsEnginePlatformer(self.player, self.ground)
         self.physics.gravity_constant = 0.8
@@ -35,6 +39,7 @@ class Platformer(arcade.Window):
         self.player.draw()
         self.gems.draw()
         self.spikes.draw()
+        self.powerblocks.draw()
 
         arcade.draw_text(str(self.score), self.width - 100, self.height - 100, anchor_x="right", anchor_y="top")
 
@@ -72,6 +77,9 @@ class Platformer(arcade.Window):
         gem_collisions = arcade.check_for_collision_with_list(self.player, self.gems)
         for gem in gem_collisions:
             gem.kill()
+        
+        if self.powerblock.collides(self.player):
+            self.powerblock.sprite.kill()
 
 
         self.player.update_animation(self.physics.jumps_since_ground)
