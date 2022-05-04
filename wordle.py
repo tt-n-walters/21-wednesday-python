@@ -48,5 +48,4 @@ for i in range(15918):
     if passed_green and passed_yellow and passed_grey:
         print(word)
 
-        1word =
     
